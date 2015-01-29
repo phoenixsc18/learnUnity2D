@@ -4,6 +4,8 @@ using System.Collections;
 public class playerController : MonoBehaviour 
 {
   private Animator animator;
+  private const float CHAR_MOVE_SPEED = .05f;
+
   // Use this for initialization
 	void Start()
 	{
@@ -14,24 +16,35 @@ public class playerController : MonoBehaviour
 	void Update()
 	{
 		
-		var vertical = Input.GetAxis("Vertical");
-		var horizontal = Input.GetAxis("Horizontal");
-		
-		if (vertical > 0)
+		if(Input.GetKey(KeyCode.UpArrow))
 		{
-			animator.SetInteger("Direction", 2);
+      animator.enabled = true;
+			animator.SetInteger("Direction", 2);  // up
+      transform.position = new Vector3(transform.position.x, transform.position.y + CHAR_MOVE_SPEED, transform.position.z);
 		}
-		else if (vertical < 0)
+    else if(Input.GetKey(KeyCode.DownArrow))
 		{
-			animator.SetInteger("Direction", 0);
+      animator.enabled = true;
+			animator.SetInteger("Direction", 0);  // down
+      transform.position = new Vector3(transform.position.x, transform.position.y - CHAR_MOVE_SPEED, transform.position.z);
 		}
-		else if (horizontal > 0)
+    else if(Input.GetKey(KeyCode.LeftArrow))
 		{
-			animator.SetInteger("Direction", 3);
+      animator.enabled = true;
+			animator.SetInteger("Direction", 1);  // left
+      transform.position = new Vector3(transform.position.x - CHAR_MOVE_SPEED, transform.position.y, transform.position.z);
 		}
-		else if (horizontal < 0)
+    else if(Input.GetKey(KeyCode.RightArrow))
 		{
-			animator.SetInteger("Direction", 1);
+      animator.enabled = true;
+			animator.SetInteger("Direction", 3); // right
+      transform.position = new Vector3(transform.position.x + CHAR_MOVE_SPEED, transform.position.y, transform.position.z);
 		}
+    else
+    {
+      // not moving
+      animator.enabled = false;
+    }
 	}
 }
+
